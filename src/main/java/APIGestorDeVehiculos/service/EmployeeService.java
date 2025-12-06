@@ -20,7 +20,7 @@ public class EmployeeService {
         return this.employeeRepository.save(employee);
     }
 
-    public List<Employee> finAllEmployee() {
+    public List<Employee> findAllEmployee() {
         return this.employeeRepository.findAll();
     }
 
