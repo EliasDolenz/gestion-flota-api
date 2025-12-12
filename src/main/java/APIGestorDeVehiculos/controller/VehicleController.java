@@ -83,4 +83,13 @@ public class VehicleController {
         return ResponseEntity.created(location).body(savedVehicle);
     }
 
+    @GetMapping("/{idVehicle}/service-alert")
+    public ResponseEntity<String> getServicealert(@PathVariable Long idVehicle) {
+        String mesaggeAlert = vehicleService.checkServiceAlert(idVehicle);
+
+        if (mesaggeAlert.contains("Alerta")) {
+            return ResponseEntity.status(409).body(mesaggeAlert);
+        }
+        return ResponseEntity.ok(mesaggeAlert);
+    }
 }

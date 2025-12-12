@@ -1,7 +1,6 @@
 package APIGestorDeVehiculos.domain;
 
 import java.time.LocalDateTime;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,29 +12,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//Clase POJO
 @Entity
-@Table(name = "Usages")
+@Table(name = "reserva")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Usage {
+@AllArgsConstructor
 
+public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
-    private Integer startKm;
-    private Integer endKm;
-    private String destination;
+    private Long idReservation;
 
     @ManyToOne
-    @JoinColumn(name = "vehicle_id")
+    @JoinColumn(name = "assigned_vehicle_id")
     private Vehicle vehicle;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id")
+    @JoinColumn(name = "assigned_employee_id")
     private Employee employee;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
 }

@@ -27,17 +27,13 @@ public class Vehicle {
     private Long id;
     private String licensePlate;
     private Integer currentKm;
+    private Integer kmLastService;
     @ManyToOne
-    @JoinColumn(name = "asigned_employee_id")
+    @JoinColumn(name = "assigned_employee_id")
     private Employee employee;
     @ManyToOne
     @JoinColumn(name = "office_id")
     private Office office;
     private LocalDate dataLastService;
     private LocalDate expirationDateVtv;
-
-    public Long getAssignatedEmployeeId() {
-        return this.employee.getId();
-    }
-
 }

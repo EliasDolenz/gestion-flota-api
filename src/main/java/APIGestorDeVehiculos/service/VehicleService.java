@@ -11,6 +11,8 @@ import APIGestorDeVehiculos.repository.VehicleRepository;
 @Service
 public class VehicleService {
     private final VehicleRepository vehicleRepository;
+    private static final Integer serviceIntervalKm = 10000;
+    private static final Integer alertService = 1000;
 
     // @Autowired No es necesario ya que la clase solo tiene 1 constructor.
     public VehicleService(VehicleRepository vehicleRepository) {
@@ -35,5 +37,29 @@ public class VehicleService {
             return Boolean.TRUE;
         }
         return Boolean.FALSE;
+    }
+
+    public String checkServiceAlert(Long vehicleId) {
+        Optional<Vehicle> vehicleOpt = vehicleRepository.findById(vehicleId);
+
+        if (vehicleOpt.isEmpty()) {
+            return "Vehiculo no encontrado";
+        }
+
+        Vehicle vehicle = vehicleOpt.get();
+
+        if (vehicle.getKmLastService() == null) {
+            return "Ok. Falta registrar el kilometraje del último service";
+        }
+
+        Integer kmSinceLastService = vehicle.getCurrentKm() - vehicle.getKmLastService();
+
+        Integer kmRemaining = serviceIntervalKm - (kmSinceLastService % serviceIntervalKm);
+
+        if (kmRemaining <= alertService) {
+            return "!Alerta! Faltan solo +" + kmRemaining + " km para el proximo service.";
+        } else {
+            return "Ok. Faltan " + kmRemaining + " km para el proximo Service";
+        }
     }
 }
