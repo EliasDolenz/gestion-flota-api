@@ -29,7 +29,7 @@ public class UsageService {
     }
 
     @Transactional
-    public Usage CheckOut(Long usageId, Integer endKm) {
+    public Usage checkOut(Long usageId, Integer endKm) {
         Usage usage = this.usageRepository.findById(usageId)
                 .orElseThrow(() -> new IllegalStateException("Uso no encontrado o ya finalizado."));
 

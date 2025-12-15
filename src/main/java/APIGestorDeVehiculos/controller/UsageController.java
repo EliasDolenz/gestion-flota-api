@@ -37,7 +37,7 @@ public class UsageController {
     @PatchMapping("/{usageId}/checkout")
     public ResponseEntity<Usage> checkOut(@PathVariable Long idUsage, @RequestBody Integer endKm){
         try {
-            Usage finishUsage = this.usageService.CheckOut(idUsage, endKm);
+            Usage finishUsage = this.usageService.checkOut(idUsage, endKm);
             return ResponseEntity.ok(finishUsage);
         } catch (IllegalStateException | IllegalArgumentException e){
             return ResponseEntity.badRequest().body(null);
